@@ -122,7 +122,7 @@ class FotoapparatCamera constructor(
         baseApi.pageSegMode = DEFAULT_PAGE_SEG_MODE
         baseApi.setImage(bitmap)
         val mrz = baseApi.utF8Text
-        baseApi.end()
+        baseApi.recycle()
         return mrz
     }
 

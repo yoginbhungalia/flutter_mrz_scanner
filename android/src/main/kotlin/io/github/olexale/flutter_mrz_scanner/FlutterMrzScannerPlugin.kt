@@ -27,14 +27,14 @@ class FlutterMrzScannerPlugin : FlutterPlugin {
 
 class MRZScannerFactory(private val messenger: BinaryMessenger) : PlatformViewFactory(StandardMessageCodec.INSTANCE) {
 
-    override fun create(context: Context, id: Int, o: Any?): PlatformView {
+    override fun create(context: Context?, id: Int, o: Any?): PlatformView {
         return MRZScannerView(context, messenger, id)
     }
 }
 
-class MRZScannerView internal constructor(context: Context, messenger: BinaryMessenger, id: Int) : PlatformView, MethodChannel.MethodCallHandler {
+class MRZScannerView internal constructor(context: Context?, messenger: BinaryMessenger, id: Int) : PlatformView, MethodChannel.MethodCallHandler {
     private val methodChannel: MethodChannel = MethodChannel(messenger, "mrzscanner_$id")
-    private val cameraView: FotoapparatCamera = FotoapparatCamera(context, methodChannel)//, messenger)
+    private val cameraView: FotoapparatCamera = FotoapparatCamera(context!!, methodChannel)//, messenger)
 
     override fun getView(): View = cameraView.cameraView
 
