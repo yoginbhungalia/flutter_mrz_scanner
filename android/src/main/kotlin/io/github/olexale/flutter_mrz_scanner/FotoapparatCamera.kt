@@ -11,7 +11,9 @@ import io.fotoapparat.configuration.CameraConfiguration
 import io.fotoapparat.configuration.UpdateConfiguration
 import io.fotoapparat.parameter.Resolution
 import io.fotoapparat.preview.Frame
+import io.fotoapparat.selector.highestResolution
 import io.fotoapparat.selector.off
+import io.fotoapparat.selector.standardRatio
 import io.fotoapparat.selector.torch
 import io.fotoapparat.view.CameraView
 import java.io.ByteArrayOutputStream
@@ -28,12 +30,9 @@ class FotoapparatCamera constructor(
 
     val cameraView = CameraView(context)
     val configuration = CameraConfiguration(frameProcessor = this::processFrame,
-            pictureResolution = {
-                last { it.width >= 800 }
-            },
-            previewResolution = {
-                last { it.width >= 800 }
-            })
+            pictureResolution = standardRatio(highestResolution()),
+            previewResolution = standardRatio(highestResolution())
+    )
     val fotoapparat = Fotoapparat(
             context = context,
             view = cameraView,
